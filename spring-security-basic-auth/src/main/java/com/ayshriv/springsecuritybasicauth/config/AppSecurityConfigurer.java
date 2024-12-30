@@ -32,27 +32,12 @@ public class AppSecurityConfigurer {
 
     // InMemory user password
     @Bean
-    InMemoryUserDetailsManager inMemoryUserDetailsManager(){
+    public InMemoryUserDetailsManager inMemoryUserDetailsManager() throws Exception {
         UserDetails user1=User.withDefaultPasswordEncoder()
                 .username("ayshriv")
                 .password("ayshriv@123")
                 .build();
 
-        UserDetails user2=User.withDefaultPasswordEncoder()
-                .username("ayush")
-                .password("ayush@123")
-                .build();
-
-        UserDetails user3=User.withDefaultPasswordEncoder()
-                .username("ayush")
-                .password("ayush@123")
-                .build();
-
-        UserDetails user4=User.withDefaultPasswordEncoder()
-                .username("ayush")
-                .password("ayush@123")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1,user2,user3,user4);
+        return new InMemoryUserDetailsManager(user1);
     }
 }
