@@ -22,30 +22,36 @@ public class AppSecurityConfig {
     private CustomerService customerService;
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder pwdEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-        daoAuthenticationProvider.setUserDetailsService(customerService);
-        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-        return daoAuthenticationProvider;
+    public AuthenticationManager authManager(AuthenticationConfiguration config) throws Exception {
+        return config.getAuthenticationManager();
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
-                .requestMatchers("/register", "/login")
-                .permitAll()
-                .anyRequest()
-                .authenticated());
-        return httpSecurity.build();
+    public AuthenticationProvider authProvider() {
+
+        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
+        authProvider.setUserDetailsService(customerService);
+        authProvider.setPasswordEncoder(pwdEncoder());
+
+        return authProvider;
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationManager) throws Exception {
-        return authenticationManager.getAuthenticationManager();
+    public SecurityFilterChain securityConfig(HttpSecurity http) throws Exception{
+
+        http.authorizeHttpRequests( req -> {
+            req.requestMatchers("/register", "/login")
+                    .permitAll()
+                    .anyRequest()
+                    .authenticated();
+        });
+
+        return http.csrf().disable().build();
     }
 }
