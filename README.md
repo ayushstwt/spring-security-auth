@@ -17,3 +17,6 @@ This project demonstrates how to secure REST APIs using Spring Security with OAu
 - **JWT**  
 - **Maven**  
 
+### Login
+
+![image](https://github.com/user-attachments/assets/33fdbf61-9efc-452c-b741-a58d7dc0d50d)
