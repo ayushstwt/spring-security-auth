@@ -19,4 +19,5 @@ This project demonstrates how to secure REST APIs using Spring Security with OAu
 
 ### Login
 
-![image](https://github.com/user-attachments/assets/33fdbf61-9efc-452c-b741-a58d7dc0d50d)
+![image](https://github.com/user-attachments/assets/4614ff60-6cbf-4e9b-9a97-f56e291e5d32)
+
